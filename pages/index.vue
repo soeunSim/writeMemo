@@ -5,7 +5,7 @@
 
       <NuxtLink to="/create">create</NuxtLink>
 
-      <div v-if="memoListData !== null " class="box-content">
+      <div v-if="memoListData !== null" class="box-content">
         <NuxtLink v-for="item in memoListData.payload.content" class="group-content">
           <span>No. {{ item.id }}</span>
           <span class="title">{{ item.title }}</span>
@@ -25,6 +25,7 @@
   const route = useRoute();
   
   const currentBoard = ref<string | null>(null);
+
   
   const {data: memoListData} = await useAsyncData<ResponseStructure<ResponsePagenation<MemoListStructure[]>>>(`memo-${currentBoard}`, () => $fetch<ResponseStructure<ResponsePagenation<MemoListStructure[]>>>(`/api/memo`));
 useSeoMeta({

@@ -24,8 +24,8 @@ interface MemoModifyStructure {
 }
 
 // 메모 사용자 등록 구조체
-interface writeDataStructure {
+interface WriteDataStructure {
   title: string;
-  writer: string;
+  writer?: string; // 저희 팀 컨벤션은 타입 지정할때 있을수도 있고 없고 일때는 명확히 null을 지양하는건지?
   contentText: string;
 }
