@@ -1,0 +1,27 @@
+{
+  "name": "ver05",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "nuxt": "3.17.5",
+    "vue": "3.5.18",
+    "vue-router": "^4.6.4"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "postcss-html": "^1.8.1",
+    "postcss-scss": "^4.0.9",
+    "sass": "^1.89.2",
+    "stylelint": "^17.4.0",
+    "stylelint-config-standard": "^40.0.0",
+    "stylelint-order": "^7.0.0",
+    "typescript": "^5.9.3"
+  }
+}
