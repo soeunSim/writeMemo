@@ -14,20 +14,56 @@
         </NuxtLink>
 
         <div class="group-btn">
-          <NuxtLink to="/$">1</NuxtLink>
+          <NuxtLink to="/memo/1">1</NuxtLink>
+          <NuxtLink to="/memo/2">2</NuxtLink>
+          <NuxtLink to="/memo/3">3</NuxtLink>
+          <NuxtLink to="/memo/4">4</NuxtLink>
+          <NuxtLink to="/memo/5">5</NuxtLink>
         </div>
       </div>
     </div>
   </main>
+  <pre>{{ route.params }}</pre>
+  <pre>{{ route }}</pre>
 </template>
 
 <script setup lang="ts">
-  const route = useRoute();
+const route = useRoute();
   
-  const currentBoard = ref<string | null>(null);
+const currentBoard = ref<number | null>(null);
 
   
-  const {data: memoListData} = await useAsyncData<ResponseStructure<ResponsePagenation<MemoListStructure[]>>>(`memo-${currentBoard}`, () => $fetch<ResponseStructure<ResponsePagenation<MemoListStructure[]>>>(`/api/memo`));
+pageInit();
+
+const {data: memoListData} = await useAsyncData<ResponseStructure<ResponsePagenation<MemoListStructure[]>>>(`memo-${currentBoard.value}`, () => $fetch<ResponseStructure<ResponsePagenation<MemoListStructure[]>>>(`/api/memo`));
+
+  // 페이지 준비 함수
+function pageInit() {
+  if (route.params.page !== undefined) {
+
+      if (isNaN(Number(route.params.page)) === false) {
+        currentBoard.value = parseInt(route.params.page as string);
+      } else {
+        showError({ statusCode: 404 });
+      }
+    }  else {
+    currentBoard.value = 1;
+  }
+}
+
+watch(
+  () => currentBoard.value,
+  async (newDate) => {
+    await navigateTo({
+      path: "/memo",
+      query: {
+        ...route.query,
+        currentBoard: newDate,
+      }
+    })
+  }
+)
+
 useSeoMeta({
   title: "목록입니다.",
   ogTitle: "목록입니다"
